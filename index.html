@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="pragma" content="no-cache"> 
+<meta http-equiv="refresh" content="300">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate"> 
+<meta http-equiv="expires" content="Wed, 26 Feb 1997 08:21:57 GMT">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>Nightly report</title>
+
+    <!-- Bootstrap -->
+    <link href="//cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.css" rel="stylesheet">
+    <link href="//cdn.bootcss.com/select2/4.0.0/css/select2.min.css" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.8.1/bootstrap-table.min.css">  -->
+    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap-table/1.8.1/bootstrap-table.min.css">
+    <link rel="shortcut icon" type="image/x-icon" href="./static/asset/ico/favicon.ico" media="screen" />
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script src="//cdn.bootcss.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="//cdn.bootcss.com/select2/4.0.0/js/select2.min.js"></script>
+    <!--<script src="//cdn.bootcss.com/select2/4.0.0/js/i18n/zh-CN.js"></script>-->
+
+    <!--script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.8.1/bootstrap-table.min.js"></script-->
+    <script src="//cdn.bootcss.com/bootstrap-table/1.8.1/bootstrap-table.min.js"></script>
+    <!--<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.8.1/locale/bootstrap-table-zh-CN.min.js"></script>-->
+    <script src="https://cdn.hcharts.cn/highcharts/highcharts.js"></script>
+
+<style type="text/css">
+h3, p { font-size:100%; display:inline; zoom:1; padding:5px; margin:5px;}
+</style>
+
+</head>
+<body>
+
+<div>
+<h4></h4>  
+<p style="color:red;font-size:20px;"><strong>Select here : </strong></p>
+<p style="color:blue;font-size:15px;"><strong>release: </strong></p>
+<select id="releaseList">
+</select>
+<p style="color:blue;font-size:15px;"><strong>spin: </strong></p>
+<select id="spinList">
+</select>
+
+<button type="button" class="btn btn-info " onclick="javascript:search4();">Display</button>
+<input type="button" class="btn btn-info" value="reload" onclick="replaceDoc()">
+</div>
+
+<div class="row">
+	<div class="col-md-4" style="background-color:#E0E0E0; height:80px;">
+            <ul class="nav navbar-nav">
+		<div class="bgyellow" style="margin-top:0">
+			<p style="color:dark;font-size:19px;"><strong>ltafRelease: </strong></p>
+			<p style="color:dark;font-size:19px;" id="demo2"></p>
+		</div>
+		<div class="bgyellow" style="margin-top:0"  id="content">
+			<p style="color:dark;font-size:19px;"><strong>nightlySpin: </strong></p>
+			<p style="color:blue;font-size:19px;" id="demo"></p>
+		</div>
+	</div>
+
+	<div class="col-md-2" style="background-color:#E0E0E0; height:80px;">
+	<div class="bgyellow" style="margin-top:0">
+		<p style="color:dark;font-size:19px;"><strong>spinWarnings: </strong></p>
+		<p style="color:red;font-size:19px;" id="demo1"></p>
+	</div>
+	<div class="bgyellow" style="margin-top:0">
+		<p style="color:dark;font-size:19px;"><strong>timestamp: </strong></p>
+		<p style="color:dark;font-size:19px;" id="ts"></p>
+	</div>
+	</div>
+
+	<div class="col-md-1" style="background-color:#E0E0E0; height:80px;">
+	<h5> </h5>  
+	</div>
+
+	<div class="col-md-5" style="background-color:#E0E0E0; height:80px;">
+	<h5> </h5>  
+	<!--a class='btn btn-info btn-large ' href="http://vxjenkins.wrs.com:8080/job/vx7_PR_summary/11820/artifact/report/index.html" id="nightlyLog">Build Log link</a-->
+	<ul class="nav nav-tabs">
+	<li class="dropdown">
+		<a class="navbar-brand" data-toggle="dropdown" href="#">Dashboards <span class="caret"></span>
+		</a>
+		<ul class="dropdown-menu">
+			<li><a href="http://bos-jlavene-dl1.corp.ad.wrs.com:3005/dashboard/db/vx7-defect-inventory?orgId=1">Defect inventory</a></li>
+			<li><a href="http://bos-jlavene-dl1.corp.ad.wrs.com:3005/dashboard/db/vxworks-7-woh?orgId=1">WOH</a></li>
+			<li><a href="#">Bugboard</a></li>
+		</ul>
+	</li>
+	</ul>
+	</div>
+
+ </div>
+ </div>
+
+<div class="container-fluid">
+
+<div class="row">
+<div class="col-md-5" style="background-color:#F5F5F5; height:1400px;">
+<div class="col-md-8"></div>
+
+<h4></h4>  
+
+<div class="bgyellow" style="margin-top:0">
+	<p style="color:dark;font-size:19px;"><strong>nightly </strong></p>
+</div>
+
+<img src="nightlyTrend.png" id="nightlyTrend" class="img-responsive" alt="Cinque Terre" width="3040" height="2360"> 
+
+<div id="container" style="min-width:500px;height:500px"></div>
+
+<table data-toggle="table" data-pagination="false"
+       data-side-pagination="server"
+       data-page-list="[20, 50, 100]"
+       data-query-params = "queryParams">
+    <thead>
+    <tr>
+            <th data-field="testsuite">testsuite</th>
+            <th data-field="not started">notstart</th>
+            <th data-field="pass">pass</th>
+            <th data-field="fail">fail</th>
+            <th data-field="total">total</th>
+    </tr>
+    </thead>
+</table>
+
+<h1>.</h1>  
+<p style="color:dark;font-size:19px;"><strong>Defects: </strong></p>
+<iframe src='df.html?"+Math.random();+"' width="1500" height="500" > 
+<a href="df.html">Your browser don't support iframe, click here get the page content.</a> 
+</iframe> 
+
+</div>
+
+<div class="col-md-4"style="background-color:#F5F5F5; height:1400px;">
+
+<div class="bgyellow" style="margin-top:0">
+	<p style="color:dark;font-size:19px;"><strong>Coverity test : </strong></p>
+	<p style="color:dark;font-size:19px;" id="demoCov"></p>
+</div>
+
+    <div id="disp"></div>  
+	<h4> </h4>  
+	<a class='btn btn-info' href="http://ala-analysis:18080/login/login.htm">Coverity Connect</a>
+	<a class='btn btn-info' href="" id="pdfUrl">PDF Report</a>
+	<img src="" id="covPng" class="img-responsive" alt="Cinque Terre" width="3040" height="236"> 
+
+</div>
+
+<div class="col-md-3"style="background-color:#F5F5F5; height:1400px;">
+	<h2 align="left" style="color:blue">Today's build:</h2>
+	<iframe id="NcommitUrl" src="http://128.224.162.55/nightlyReport/index3.html" width="450" height="200" > 
+	</iframe> 
+
+	<p style="color:dark;font-size:19px;"><strong>Commit info: </strong></p>
+	<iframe id="commitUrl" src="" width="450" height="850" > 
+	</iframe> 
+</div>
+</div>
+
+ <script>
+
+function replaceDoc()
+{
+   window.location.replace("http://128.224.162.55/nightlyReport/")
+}
+
+$.ajax({
+        url : 'json.php?name=spin'
+    }).done(function(data) {
+        $("#spinList").select2({
+            placeholder : 'please choose',
+            allowClear: true,
+            width : 250,
+            data : eval(data)
+        });
+        $("select").val(null).trigger("change");
+    });
+
+$.ajax({
+        url : 'json.php?name=ltafrelease'
+    }).done(function(data) {
+        $("#releaseList").select2({
+            placeholder : 'please choose',
+            allowClear: true,
+            width : 250,
+            data : eval(data)
+        });
+        $("select").val(null).trigger("change");
+    });
+
+    $('#releaseList').on("select2:select", function(e){
+        $.ajax({
+            url : 'json.php?name=spin',
+            data : {
+                ltafrelease : $('#releaseList').val()
+            }
+        }).done(function(data) {
+            var list = $("#spinList");
+            list.html('');
+            list.select2({
+                placeholder : 'please choose',
+                allowClear: true,
+                width : 250,
+                data : eval(data)
+            });
+            list.val(null).trigger("change");
+        });
+    });
+ </script>
+
+ <script>
+
+    function getJsonData(){
+	var date = new Date();
+	mark = {Time:date.toDateString(),Math:Math.random()};
+    	$.getJSON("spindata.json",mark,function(data)
+	{  
+	    $.each (data, function (i, item)  
+	    {  
+		document.getElementById("demo").innerHTML=item.nightlyspin;
+		document.getElementById("demo1").innerHTML=item.warnnum;
+		document.getElementById("demo2").innerHTML=item.ltafrelease;
+		document.getElementById("demoCov").innerHTML=item.covnew;
+		document.getElementById("ts").innerHTML=item.nightlytime;
+		document.getElementById("pdfUrl").href=item.covpdfurl;
+		document.getElementById("covPng").src= item.covpngurl;
+		document.getElementById("nightlyTrend").src= item.trendurl;
+		document.getElementById("commitUrl").src= item.commiturl;
+	    });  
+	});  
+    }
+
+    function search4(){
+        var spin = $('#spinList').val();
+        $('table').bootstrapTable('refresh', {
+            silent: true,
+            url : 'page1.php',
+            query: {
+                spin : spin
+            }
+        });
+	setTimeout(getJsonData,100);
+	setTimeout(init,100);
+    }
+
+    function queryParams(params){
+
+        return $.extend({}, {
+            spin : $('#spinList').val()
+        }, params);
+
+    }
+
+    function drawCircle2(data_arr1)
+    {
+	$(function () {
+	    $('#container').highcharts({
+		chart: {
+		    plotBackgroundColor: null,
+		    plotBorderWidth: null,
+		    plotShadow: false
+		},
+		title: {
+		    text: '' 
+		},
+		tooltip: {
+		    headerFormat: '{series.name}<br>',
+		    pointFormat: '{point.name}: <b>{point.percentage:.1f}%</b>'
+		},
+		plotOptions: {
+		    pie: {
+			allowPointSelect: true,
+			cursor: 'pointer',
+			dataLabels: {
+			    enabled: true,
+			    // 通过 format 或 formatter 来格式化数据标签显示
+			    //format: '值: {point.y} 占比 {point.percentage} %',
+			    formatter: function() {
+				//this 为当前的点（扇区）对象，可以通过  console.log(this) 来查看详细信息
+				//return '<span style="color: ' + this.point.color + '"> 值：' + this.y + '，占比' + this.percentage + '%</span>';
+				console.log(this)
+				//return '<span style="font-size:15px;color: ' + this.point.color + '">' + this.key + ' Num: '  + this.y + '，PCT: ' + this.percentage.toFixed(2) + '%</span>';
+				return '<span style="font-size:15px;color: ' + this.point.color + '">' + this.key + ': '  + this.y + ', ' + this.percentage.toFixed(2) + '%</span>';
+			    }
+			},
+			colors: ["#32CD32", "#FF2D2D", "#B15BFF", " #FF8000"],
+			showInLegend: true  // 显示在图例中
+		    }
+		},
+		legend : { 
+		    itemStyle : { 
+			'fontSize' : '16px' 
+		    } 
+	},
+		series: [{
+		    type: 'pie',
+		    name: 'PCT',
+		    data: [
+			['Pass',   data_arr1[0]],
+			['Fail',   data_arr1[1]],
+			{
+			    name: 'Blocked',
+			    y: data_arr1[2],
+			    sliced: true,
+			    selected: true
+			},
+			['Not Started',   data_arr1[3]]
+		    ]
+		}]
+	    });
+	});
+}
+
+    function init() {
+    var data_arr=new Array()
+    var data_arr1=new Array()
+    var date = new Date();
+    mark = {Time:date.toDateString(),Math:Math.random()};
+    $.getJSON("spindata.json",mark,function(data)
+	{  
+	    $.each (data, function (i, item)  
+	    {  
+		data_arr[0]= parseFloat(item.pass); 
+		data_arr[1]= parseFloat(item.fail);
+		data_arr[2]= parseFloat(item.blocked);
+		data_arr[3]= parseFloat(item.notstart); 
+		//alert(data_arr);
+		return false;
+	    });  
+	    data_arr1=data_arr; 
+	    drawCircle2(data_arr1);
+	 });  
+    }
+
+</script>
+
+<script>
+
+window.onload = getLastSpin;
+function getLastSpin(){
+	var date = new Date();
+	var spin = "xxx";
+	mark = {Time:date.toDateString(),Math:Math.random()};
+	$.getJSON("buildInfoT.json",mark,function(data)
+	{  
+	    $.each (data, function (i, item)  
+	    {  
+		spin= item.lastspinFake;
+	    });  
+	search5(spin);
+	});  
+}
+function search5(spin){
+	$('table').bootstrapTable('refresh', {
+	    silent: true,
+	    url : 'page1.php',
+	    query: {
+		spin : spin
+	    }
+	});
+	setTimeout(getJsonData,100);
+	setTimeout(init,100);
+}
+
+//$("#spinList").change(function(){ 
+//  search4();
+//});
+</script>
+
+</body>
+</html>
