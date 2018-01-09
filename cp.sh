@@ -24,7 +24,9 @@ echo "123456" | sudo -S cp /folk/yli14/emailmessage.html /usr/local/nginx/html/t
 !
 echo "123456" | sudo -S cp /folk/yli14/test/runOrNot2.json /usr/local/nginx/html/nightlyReport/buildInfoT.json
 #echo "123456" | sudo -S cp /folk/yli14/df.html /usr/local/nginx/html/nightlyReport
-echo "123456" | sudo -S cp /folk/yli14/nightlyTrend.png /usr/local/nginx/html/nightlyReport
+#echo "123456" | sudo -S cp /folk/yli14/test/nightlyTrend.png /usr/local/nginx/html/nightlyReport
+echo "123456" | sudo -S cp /folk/yli14/test/vx7-integration.png /usr/local/nginx/html/nightlyReport
+echo "123456" | sudo -S cp /folk/yli14/test/vx7-SR0520-features.png /usr/local/nginx/html/nightlyReport
 
 
 

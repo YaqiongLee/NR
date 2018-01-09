@@ -113,7 +113,7 @@ h3, p { font-size:100%; display:inline; zoom:1; padding:5px; margin:5px;}
 	<p style="color:dark;font-size:19px;"><strong>nightly </strong></p>
 </div>
 
-<img src="nightlyTrend.png" id="nightlyTrend" class="img-responsive" alt="Cinque Terre" width="3040" height="2360"> 
+<img src="xxnightlyTrend.png" id="nightlyTrend" class="img-responsive" alt="Cinque Terre" width="3040" height="2360"> 
 
 <div id="container" style="min-width:500px;height:500px"></div>
 
@@ -156,10 +156,29 @@ h3, p { font-size:100%; display:inline; zoom:1; padding:5px; margin:5px;}
 </div>
 
 <div class="col-md-3"style="background-color:#F5F5F5; height:1400px;">
-	<h2 align="left" style="color:blue">Today's build:</h2>
-	<iframe id="NcommitUrl" src="http://128.224.162.55/nightlyReport/index3.html" width="450" height="200" > 
-	</iframe> 
+	<h2 align="left" style="color:blue">Today's buildInfo:</h2>
+	<img src="" id="colour" class="img-responsive" alt="Cinque Terre" width="440" height="200"> 
+		<div class="bgyellow" style="margin-top:0"  id="content">
+			<p style="color:dark;font-size:15px;"><strong>nightlySpin:</strong></p>
+			<p style="color:blue;font-size:18px;" id="spinT"></p>
+		</div>
+		<div class="bgyellow" style="margin-top:0">
+			<p style="color:dark;font-size:15px;"><strong>ltafRelease:</strong></p>
+			<p style="color:dark;font-size:18px;" id="releaseT"></p>
+		</div>
+		<div class="bgyellow" style="margin-top:0">
+			<p style="color:dark;font-size:15px;"><strong>lastSpin:</strong></p>
+			<p style="color:dark;font-size:18px;" id="lastspinT"></p>
+		</div>
 
+		<div class="bgyellow" style="margin-top:0">
+			<p style="color:dark;font-size:15px;"><strong>timestamp:</strong></p>
+			<p style="color:blue;font-size:18px;" id="dateT"></p>
+		</div>
+	<!--iframe id="NcommitUrl" src="http://128.224.162.55/nightlyReport/index3.html" width="450" height="200" > 
+	</iframe--> 
+<h4></h4>  
+<h4></h4>  
 	<p style="color:dark;font-size:19px;"><strong>Commit info: </strong></p>
 	<iframe id="commitUrl" src="" width="450" height="850" > 
 	</iframe> 
@@ -233,7 +252,7 @@ $.ajax({
 		document.getElementById("ts").innerHTML=item.nightlytime;
 		document.getElementById("pdfUrl").href=item.covpdfurl;
 		document.getElementById("covPng").src= item.covpngurl;
-		document.getElementById("nightlyTrend").src= item.trendurl;
+		document.getElementById("nightlyTrend").src= item.trendurlnew;
 		document.getElementById("commitUrl").src= item.commiturl;
 	    });  
 	});  
@@ -355,6 +374,11 @@ function getLastSpin(){
 	    $.each (data, function (i, item)  
 	    {  
 		spin= item.lastspinFake;
+		document.getElementById("spinT").innerHTML=item.nightlyspin;
+		document.getElementById("releaseT").innerHTML=item.ltafrelease;
+		document.getElementById("dateT").innerHTML=item.nightlytime;
+		document.getElementById("lastspinT").innerHTML=item.lastspin;
+		document.getElementById("colour").src=item.cfg1col;
 	    });  
 	search5(spin);
 	});  
