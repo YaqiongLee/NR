@@ -6,6 +6,7 @@ $spin= $_GET["spin"];
 $queryObj = array();
 if(!empty($spin))
     $queryObj["spin"] =$spin;
+    $queryObj["show"] = "no";
 
 include_once("./Core/db.php");
 $collection = db::getCollection();
@@ -24,6 +25,7 @@ echo json_encode(array(
 
 
 $queryObj["testsuite"] = "Spininfo";
+$queryObj["show"] = "yes";
 $cursor = $collection->find($queryObj, array(
     "_id" => 0
 ));

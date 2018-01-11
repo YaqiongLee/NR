@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="pragma" content="no-cache"> 
-<meta http-equiv="refresh" content="300">
+<!--meta http-equiv="refresh" content="600"i-->
 <meta http-equiv="Cache-Control" content="no-cache, must-revalidate"> 
 <meta http-equiv="expires" content="Wed, 26 Feb 1997 08:21:57 GMT">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
@@ -43,10 +43,10 @@ h3, p { font-size:100%; display:inline; zoom:1; padding:5px; margin:5px;}
 <div>
 <h4></h4>  
 <p style="color:red;font-size:20px;"><strong>Select here : </strong></p>
-<p style="color:blue;font-size:15px;"><strong>release: </strong></p>
+<p style="color:blue;font-size:16px;"><strong>release: </strong></p>
 <select id="releaseList">
 </select>
-<p style="color:blue;font-size:15px;"><strong>spin: </strong></p>
+<p style="color:blue;font-size:16px;"><strong>spin: </strong></p>
 <select id="spinList">
 </select>
 
@@ -87,7 +87,7 @@ h3, p { font-size:100%; display:inline; zoom:1; padding:5px; margin:5px;}
 	<!--a class='btn btn-info btn-large ' href="http://vxjenkins.wrs.com:8080/job/vx7_PR_summary/11820/artifact/report/index.html" id="nightlyLog">Build Log link</a-->
 	<ul class="nav nav-tabs">
 	<li class="dropdown">
-		<a class="navbar-brand" data-toggle="dropdown" href="#">Dashboards <span class="caret"></span>
+		<a class="navbar-brand" data-toggle="dropdown" href="#">Reference Dashboard Link <span class="caret"></span>
 		</a>
 		<ul class="dropdown-menu">
 			<li><a href="http://bos-jlavene-dl1.corp.ad.wrs.com:3005/dashboard/db/vx7-defect-inventory?orgId=1">Defect inventory</a></li>
@@ -104,18 +104,13 @@ h3, p { font-size:100%; display:inline; zoom:1; padding:5px; margin:5px;}
 <div class="container-fluid">
 
 <div class="row">
-<div class="col-md-5" style="background-color:#F5F5F5; height:1400px;">
-<div class="col-md-8"></div>
+<div class="col-md-5" style="background-color:#; height:1400px;">
+<!--div class="col-md-8"></div-->
 
-<h4></h4>  
+<p style="color:dark;font-size:19px;"><strong>Nightly test:</strong></p>
+<img src="xxnightlyTrend.png" id="nightlyTrend" class="img-responsive" alt="Cinque Terre" width="3040" height="1800"> 
 
-<div class="bgyellow" style="margin-top:0">
-	<p style="color:dark;font-size:19px;"><strong>nightly </strong></p>
-</div>
-
-<img src="xxnightlyTrend.png" id="nightlyTrend" class="img-responsive" alt="Cinque Terre" width="3040" height="2360"> 
-
-<div id="container" style="min-width:500px;height:500px"></div>
+<div id="container" style="min-width:500px;height:450px"></div>
 
 <table data-toggle="table" data-pagination="false"
        data-side-pagination="server"
@@ -127,12 +122,12 @@ h3, p { font-size:100%; display:inline; zoom:1; padding:5px; margin:5px;}
             <th data-field="not started">notstart</th>
             <th data-field="pass">pass</th>
             <th data-field="fail">fail</th>
+            <th data-field="blocked">blocked</th>
             <th data-field="total">total</th>
     </tr>
     </thead>
 </table>
 
-<h1>.</h1>  
 <p style="color:dark;font-size:19px;"><strong>Defects: </strong></p>
 <iframe src='df.html?"+Math.random();+"' width="1500" height="500" > 
 <a href="df.html">Your browser don't support iframe, click here get the page content.</a> 
@@ -140,7 +135,7 @@ h3, p { font-size:100%; display:inline; zoom:1; padding:5px; margin:5px;}
 
 </div>
 
-<div class="col-md-4"style="background-color:#F5F5F5; height:1400px;">
+<div class="col-md-4"style="background-color:#; height:1400px;">
 
 <div class="bgyellow" style="margin-top:0">
 	<p style="color:dark;font-size:19px;"><strong>Coverity test : </strong></p>
@@ -155,8 +150,9 @@ h3, p { font-size:100%; display:inline; zoom:1; padding:5px; margin:5px;}
 
 </div>
 
-<div class="col-md-3"style="background-color:#F5F5F5; height:1400px;">
-	<h2 align="left" style="color:blue">Today's buildInfo:</h2>
+<div class="col-md-3"style="background-color:#; height:1400px;">
+	<!--h2 align="left" style="color:blue">Today's buildInfo:</h2-->
+	<p style="color:dark;font-size:19px;"><strong>Today's buildInfo: </strong></p>
 	<img src="" id="colour" class="img-responsive" alt="Cinque Terre" width="440" height="200"> 
 		<div class="bgyellow" style="margin-top:0"  id="content">
 			<p style="color:dark;font-size:15px;"><strong>nightlySpin:</strong></p>
@@ -308,7 +304,8 @@ $.ajax({
 				//return '<span style="color: ' + this.point.color + '"> 值：' + this.y + '，占比' + this.percentage + '%</span>';
 				console.log(this)
 				//return '<span style="font-size:15px;color: ' + this.point.color + '">' + this.key + ' Num: '  + this.y + '，PCT: ' + this.percentage.toFixed(2) + '%</span>';
-				return '<span style="font-size:15px;color: ' + this.point.color + '">' + this.key + ': '  + this.y + ', ' + this.percentage.toFixed(2) + '%</span>';
+				//return '<span style="font-size:15px;color: ' + this.point.color + '">' + this.key + ': '  + this.y + ', ' + this.percentage.toFixed(2) + '%</span>';
+				return '<span style="font-size:15px;color: ' + this.point.color + '">' + this.key + ' : ' + this.percentage.toFixed(2) + '%</span>';
 			    }
 			},
 			colors: ["#32CD32", "#FF2D2D", "#B15BFF", " #FF8000"],

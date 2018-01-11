@@ -29,7 +29,7 @@ function getJson($para){
         }else{
             $spins = $collection->distinct("spin",[]);
         }
-	$arr = array_slice($spins, -5);
+	$arr = array_slice($spins, -3);
         echo json_encode(array_format($arr));
     }else{
         echo "";
